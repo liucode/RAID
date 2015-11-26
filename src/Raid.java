@@ -5,6 +5,7 @@ public abstract class Raid {
 	 protected ArrayList <Disk> disklist = new ArrayList<Disk>();
 	 private String description;
 	 protected int disknum=0;
+	 protected int lastdisk = 0;//flog last write disk
 	 public boolean addDisk(Disk disk)
 	 {
 		 disklist.add(disk);

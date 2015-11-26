@@ -26,13 +26,14 @@ public class SequenceStorage {
 	}
 	
 	
-	public void sequencewrite(String input)//input is the string
+	public boolean sequencewrite(String input)//input is the string
 	{
 		int len = input.length();//real write
 		if(input.length()+storage.realsize>storage.size)//not enough
 		{
 			System.out.println("disk not enough!");
 			len = storage.size-storage.realsize;
+			return false;
 		}
 		System.out.println("start sequence wirte!");
 		for(int i=0;i<len;i++)
@@ -42,11 +43,12 @@ public class SequenceStorage {
 		storage.realsize += len;
 		storage.state = false;
 		System.out.println("sequence wirte stop!");
+		return true;
 	}
 	
-	public String sequenceByteread(int point)// read one word in point
+	public String sequenceByteread(int offset,int point)// read one word in point
 	{
-		return (String) storage.data.get(point);
+		return (String) storage.data.get(offset+point);
 	}
 	
 	

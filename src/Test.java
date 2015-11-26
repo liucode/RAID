@@ -34,19 +34,19 @@ public class Test {
 		raid0.RandomRaidread(100);
 		*/
 		
-		//test raid1 
-		int[] sizes ={10,10};
+		/*test raid1 
+		int[] sizes ={20,20};
 		Raid1 raid1 =new Raid1(2,sizes);
 		
 		
-		raid1.SequenceRaidwrite("a");
+		raid1.SequenceRaidwrite("ab");//when disk is too small ,data will not wirte to disk 
 		raid1.readAll();
 		raid1.removeDisk(1);
 		raid1.readAll();
 		raid1.fixRaid();
 		raid1.readAll();
 		raid1.SequenceRaidread();
-		//
+		*/
 		
 		/*
 		String output=Tools.StrToBinstr("2asdoio?.1");
@@ -55,7 +55,20 @@ public class Test {
 		System.out.println(output);
 	   */
 		
-
 		
+		//raid5
+		
+		int[] sizes ={20,20,20};
+		Raid5 raid5 =new Raid5(3,sizes);
+		
+		
+
+		raid5.SequenceRaidwrite("3");
+		raid5.readAll();
+		raid5.removeDisk(2);
+		raid5.readAll();
+		raid5.fixRaid(2);
+		raid5.readAll();
+		raid5.SequenceRaidread();	
 	} 
 }

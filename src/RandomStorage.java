@@ -33,7 +33,7 @@ public class RandomStorage {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void randomwrite(String input,long seed)//input is the string
+	public boolean randomwrite(String input,long seed)//input is the string
 	{
 		System.out.println("start random wirte!");
 		int len = input.length();//real write
@@ -41,6 +41,7 @@ public class RandomStorage {
 		{
 			System.out.println("disk not enough!");
 			len = storage.size-storage.realsize;
+			return false;
 		}
 		int[] result = randomArray(0,storage.size-1,storage.size,seed);
 		for(int i=storage.realsize;i<storage.realsize+len;i++)
@@ -50,6 +51,7 @@ public class RandomStorage {
 		storage.realsize +=len;
 		storage.state = false;
 		System.out.println("random wirte stop!");
+		return true;
 	}
 	
 	public static int[] randomArray(int min,int max,int n,long seed){

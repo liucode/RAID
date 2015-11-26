@@ -10,11 +10,12 @@ public class Raid0 extends Raid{
 	public void SequenceRaidwrite(String input)
 	{
 		input = Tools.StrToBinstr(input);
-		int k = 0;
+		int k = lastdisk;
 		for(int i=0;i<input.length();i++)
 		{
 			k = k%disknum;
 			new SequenceStorage(disklist.get(k)).sequencewrite(input.charAt(i)+"");
+			lastdisk = k+1;
 			k++;
 		}
 	}
@@ -27,7 +28,7 @@ public class Raid0 extends Raid{
 			if(k>=disknum)
 				i++;
 			k = k%disknum;
-			String tempstring = new SequenceStorage(disklist.get(k)).sequenceByteread(i);
+			String tempstring = new SequenceStorage(disklist.get(k)).sequenceByteread(0,i);
 			if(tempstring=="-1")//last point
 				break;
 			result += tempstring;
@@ -61,12 +62,12 @@ public class Raid0 extends Raid{
 	{
 		input = Tools.StrToBinstr(input);
 		String[] inputs;
-		int k;
 		inputs = new String[disknum];
 		for(int i=0;i<disknum;i++)//if not exist,null+"a" = "nulla"
 		{
 			inputs[i] ="";
 		}
+		int k = lastdisk;
 		for(int i=0;i<input.length();i++)
 		{
 			k = i%disknum;
@@ -76,6 +77,7 @@ public class Raid0 extends Raid{
 		for(int i=0;i<disknum;i++)
 		{
 			new RandomStorage(disklist.get(i)).randomwrite(inputs[i],seed);
+			lastdisk = k+1;
 		}
 		
 	}
